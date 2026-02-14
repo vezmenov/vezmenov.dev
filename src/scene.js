@@ -159,6 +159,7 @@ export function initThreeBackgroundSky(canvas) {
   hudSun.position.set(700, 900, 500);
   hudScene.add(hudSun);
 
+  const cardEl = document.querySelector(".card");
   const groundEl = document.querySelector(".mc-ground");
 
   // Hemisphere light (as in the reference).
@@ -316,20 +317,50 @@ export function initThreeBackgroundSky(canvas) {
       cows.right.scale.setScalar(scale);
 
       const widthPx = cows.size.x * scale;
-      const margin = clamp(w * 0.06, 54, 140);
-
-      const xLeft = -w / 2 + margin + widthPx / 2;
-      const xRight = w / 2 - margin - widthPx / 2;
 
       cows.baseY = grassTopY - 6;
       cows.bobAmp = clamp(h * 0.006, 2, 6);
       cows.rotBase = Math.PI * 0.08;
 
-      cows.left.position.set(xLeft, cows.baseY, 0);
-      cows.right.position.set(xRight, cows.baseY, 0);
+      const gap = clamp(w * 0.018, 14, 28);
 
-      cows.left.rotation.y = cows.rotBase;
-      cows.right.rotation.y = -cows.rotBase;
+      const rect = cardEl?.getBoundingClientRect?.();
+      if (rect) {
+        // Place cows just outside the card. If they don't fit in the remaining side space, hide them.
+        const fitsLeft = rect.left - gap - widthPx >= 0;
+        const fitsRight = rect.right + gap + widthPx <= w;
+
+        cows.left.visible = fitsLeft;
+        cows.right.visible = fitsRight;
+
+        if (fitsLeft) {
+          const cardLeftX = rect.left - w / 2;
+          cows.left.position.set(cardLeftX - gap - widthPx / 2, cows.baseY, 0);
+          cows.left.rotation.y = cows.rotBase;
+        }
+
+        if (fitsRight) {
+          const cardRightX = rect.right - w / 2;
+          cows.right.position.set(cardRightX + gap + widthPx / 2, cows.baseY, 0);
+          cows.right.rotation.y = -cows.rotBase;
+        }
+      } else {
+        // Fallback: stick to viewport edges; hide on narrow layouts.
+        const margin = clamp(w * 0.06, 54, 140);
+        const xLeft = -w / 2 + margin + widthPx / 2;
+        const xRight = w / 2 - margin - widthPx / 2;
+
+        const fits = xLeft + widthPx / 2 <= xRight - widthPx / 2;
+        cows.left.visible = fits;
+        cows.right.visible = fits;
+
+        if (fits) {
+          cows.left.position.set(xLeft, cows.baseY, 0);
+          cows.right.position.set(xRight, cows.baseY, 0);
+          cows.left.rotation.y = cows.rotBase;
+          cows.right.rotation.y = -cows.rotBase;
+        }
+      }
     }
   }
 
