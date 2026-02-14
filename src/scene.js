@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -131,9 +132,12 @@ export function initThreeBackgroundSky(canvas) {
     antialias: true,
     powerPreference: "high-performance",
   });
+  renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(1);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(0x67b2ff, 8, 18);
@@ -141,6 +145,21 @@ export function initThreeBackgroundSky(canvas) {
   const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 60);
   camera.position.set(0.6, 2.5, 10.5);
   camera.lookAt(0, 1.3, 0);
+
+  // Foreground (screen-space) scene for little props that should sit "on the grass".
+  const hudScene = new THREE.Scene();
+  const hudCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 2000);
+  hudCamera.position.set(0, 0, 900);
+
+  const hudHemi = new THREE.HemisphereLight(0xe7fbff, 0x6b4b2a, 1.1);
+  hudHemi.position.set(0, 800, 0);
+  hudScene.add(hudHemi);
+
+  const hudSun = new THREE.DirectionalLight(0xffffff, 0.75);
+  hudSun.position.set(700, 900, 500);
+  hudScene.add(hudSun);
+
+  const groundEl = document.querySelector(".mc-ground");
 
   // Hemisphere light (as in the reference).
   const hemi = new THREE.HemisphereLight(0xe7fbff, 0xb97a34, 1.15);
@@ -203,6 +222,65 @@ export function initThreeBackgroundSky(canvas) {
     scene.add(b.group);
   }
 
+  const cows = {
+    left: null,
+    right: null,
+    size: new THREE.Vector3(1, 1, 1),
+    baseY: 0,
+    bobAmp: 0,
+    rotBase: 0,
+  };
+
+  // Load a CC-BY cow model and place two of them near the grass line.
+  // Source: https://poly.pizza/m/0OToIgkcVM7 (Poly by Google, CC-BY 3.0)
+  try {
+    const loader = new GLTFLoader();
+    loader.load(
+      "/models/cow-polygoogle.glb",
+      (gltf) => {
+        const template = gltf.scene;
+
+        template.traverse((o) => {
+          if (!o.isMesh) return;
+          // Background prop: keep it cheap and always visible.
+          o.castShadow = false;
+          o.receiveShadow = false;
+          o.frustumCulled = false;
+        });
+
+        template.updateWorldMatrix(true, true);
+        const box = new THREE.Box3().setFromObject(template);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+
+        // Normalize: center on X/Z, sit on Y=0.
+        template.position.x -= center.x;
+        template.position.z -= center.z;
+        template.position.y -= box.min.y;
+
+        cows.size.copy(size);
+
+        const left = template.clone(true);
+        const right = template.clone(true);
+
+        left.rotation.y = Math.PI * 0.08;
+        right.rotation.y = -Math.PI * 0.08;
+
+        cows.left = left;
+        cows.right = right;
+
+        hudScene.add(left, right);
+        resize();
+      },
+      undefined,
+      () => {
+        // Keep the page usable even if the model fails to load.
+      }
+    );
+  } catch {
+    // Ignore loader errors (SSR/WebGL constraints, etc.).
+  }
+
   const clock = new THREE.Clock();
   let raf = 0;
   let running = true;
@@ -219,6 +297,40 @@ export function initThreeBackgroundSky(canvas) {
 
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+
+    // HUD camera uses CSS pixels as world units (works with our low-res buffer + CSS scaling).
+    hudCamera.left = -w / 2;
+    hudCamera.right = w / 2;
+    hudCamera.top = h / 2;
+    hudCamera.bottom = -h / 2;
+    hudCamera.updateProjectionMatrix();
+
+    if (cows.left && cows.right) {
+      const groundH = groundEl?.getBoundingClientRect?.().height ?? Math.max(0, h * 0.22);
+      const grassTopY = -h / 2 + groundH;
+
+      const desiredH = clamp(h * 0.17, 110, 190);
+      const scale = desiredH / Math.max(0.001, cows.size.y);
+
+      cows.left.scale.setScalar(scale);
+      cows.right.scale.setScalar(scale);
+
+      const widthPx = cows.size.x * scale;
+      const margin = clamp(w * 0.06, 54, 140);
+
+      const xLeft = -w / 2 + margin + widthPx / 2;
+      const xRight = w / 2 - margin - widthPx / 2;
+
+      cows.baseY = grassTopY - 6;
+      cows.bobAmp = clamp(h * 0.006, 2, 6);
+      cows.rotBase = Math.PI * 0.08;
+
+      cows.left.position.set(xLeft, cows.baseY, 0);
+      cows.right.position.set(xRight, cows.baseY, 0);
+
+      cows.left.rotation.y = cows.rotBase;
+      cows.right.rotation.y = -cows.rotBase;
+    }
   }
 
   resize();
@@ -241,6 +353,17 @@ export function initThreeBackgroundSky(canvas) {
       b.leftWingPivot.rotation.z = -0.22 + flap;
       b.rightWingPivot.rotation.z = 0.22 - flap;
     }
+
+    if (cows.left && cows.right) {
+      const bobL = Math.sin(t * 0.9) * cows.bobAmp;
+      const bobR = Math.sin(t * 0.9 + 1.4) * cows.bobAmp;
+
+      cows.left.position.y = cows.baseY + bobL;
+      cows.right.position.y = cows.baseY + bobR;
+
+      cows.left.rotation.z = Math.sin(t * 0.55) * 0.02;
+      cows.right.rotation.z = -Math.sin(t * 0.55) * 0.02;
+    }
   }
 
   function render() {
@@ -249,7 +372,10 @@ export function initThreeBackgroundSky(canvas) {
     const t = clock.getElapsedTime();
     if (!prefersReduce) update(t);
 
+    renderer.clear();
     renderer.render(scene, camera);
+    renderer.clearDepth();
+    renderer.render(hudScene, hudCamera);
 
     if (!prefersReduce) raf = window.requestAnimationFrame(render);
   }
