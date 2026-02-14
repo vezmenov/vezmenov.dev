@@ -1,0 +1,8 @@
+{
+  "name": "vezmenov.dev",
+  "short_name": "vezmenov.dev",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#f6f2ea",
+  "theme_color": "#0b0b10"
+}

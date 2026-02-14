@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>vezmenov.dev</title>
+    <meta
+      name="description"
+      content="Minimal, sharp one-page business card. Edit the copy, push to main, Cloudflare Pages does the rest."
+    />
+    <meta name="theme-color" content="#0b0b10" />
+
+    <link rel="canonical" href="https://vezmenov.dev/" />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300..700&family=Fraunces:opsz,wght@9..144,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+
+    <div class="bg" aria-hidden="true"></div>
+
+    <main id="content" class="page">
+      <section class="card" aria-label="Business card">
+        <header class="top">
+          <p class="kicker" data-reveal>vezmenov.dev</p>
+          <p class="meta" data-reveal>
+            <span class="meta__label">Contact</span>
+            <a class="meta__value" href="mailto:hello@vezmenov.dev">hello@vezmenov.dev</a>
+          </p>
+        </header>
+
+        <h1 class="name" data-reveal>
+          <span class="name__line">Vezmenov</span>
+          <span class="name__line name__line--accent">Developer</span>
+        </h1>
+
+        <p class="lead" data-reveal>
+          A clean one-page card with just enough personality. Replace the copy, links, and email, then deploy.
+        </p>
+
+        <div class="cta" data-reveal>
+          <a class="btn btn--primary" href="mailto:hello@vezmenov.dev">Email</a>
+          <a class="btn btn--ghost" href="https://github.com/vezmenov" target="_blank" rel="noreferrer"
+            >GitHub</a
+          >
+          <button class="btn btn--ghost" type="button" data-copy="hello@vezmenov.dev">
+            Copy email
+          </button>
+        </div>
+
+        <div class="grid" data-reveal>
+          <section class="tile">
+            <h2 class="tile__title">What I do</h2>
+            <p class="tile__body">
+              Frontend engineering, design systems, and performance. Also: APIs when needed.
+            </p>
+          </section>
+
+          <section class="tile">
+            <h2 class="tile__title">Selected</h2>
+            <ul class="list">
+              <li>Fast UI, solid DX</li>
+              <li>Accessibility first</li>
+              <li>Minimal dependencies</li>
+            </ul>
+          </section>
+
+          <section class="tile">
+            <h2 class="tile__title">Links</h2>
+            <ul class="list list--links">
+              <li><a href="https://github.com/vezmenov" target="_blank" rel="noreferrer">github.com/vezmenov</a></li>
+              <li><a href="https://t.me/" target="_blank" rel="noreferrer" data-placeholder>t.me/your_handle</a></li>
+              <li><a href="/resume.pdf" data-placeholder>resume.pdf</a></li>
+            </ul>
+          </section>
+
+          <section class="tile">
+            <h2 class="tile__title">Notes</h2>
+            <p class="tile__body">
+              Everything here is static. Deploy it to Cloudflare Pages, attach the domain, and you are live.
+            </p>
+          </section>
+        </div>
+
+        <footer class="foot">
+          <p class="small">
+            © <span data-year></span> vezmenov.dev
+          </p>
+          <p class="small small--right">
+            <span class="dot" aria-hidden="true"></span>
+            built with Vite
+          </p>
+        </footer>
+      </section>
+    </main>
+
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
