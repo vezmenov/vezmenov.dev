@@ -54,6 +54,12 @@ Edit copy/links in:
 npm run ui:snap
 ```
 
+Requires installed Chrome (default channel `chrome`). You can override:
+
+```bash
+PLAYWRIGHT_CHANNEL=msedge npm run ui:snap
+```
+
 Output:
 
 - `Docs/Snapshots/latest/*.png`

@@ -4,7 +4,7 @@ import http from "node:http";
 import path from "node:path";
 import process from "node:process";
 
-import { chromium } from "playwright-chromium";
+import { chromium } from "playwright-core";
 
 const ORIGIN = "http://localhost:4173";
 const URL = `${ORIGIN}/`;
@@ -49,7 +49,14 @@ function startPreview() {
 }
 
 async function snap({ name, viewport }) {
-  const browser = await chromium.launch();
+  const channel = process.env.PLAYWRIGHT_CHANNEL || "chrome";
+  let browser;
+  try {
+    browser = await chromium.launch({ channel });
+  } catch {
+    // Fallback: try without a channel (works if a Playwright browser is installed).
+    browser = await chromium.launch();
+  }
   const context = await browser.newContext({
     viewport,
     deviceScaleFactor: 1,

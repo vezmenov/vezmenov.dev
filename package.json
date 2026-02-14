@@ -9,7 +9,7 @@
     "ui:snap": "npm run build && node scripts/ui-snapshots/snap.mjs"
   },
   "devDependencies": {
-    "playwright-chromium": "^1.58.2",
+    "playwright-core": "^1.58.2",
     "vite": "^6.4.1"
   },
   "dependencies": {
