@@ -40,7 +40,7 @@ $$("[data-copy]").forEach((btn) => {
 
     const ok = await copyToClipboard(value);
     if (ok) {
-      toast("Copied.");
+      toast("Скопировано.");
       return;
     }
 
@@ -54,7 +54,7 @@ $$("[data-copy]").forEach((btn) => {
     ta.select();
     document.execCommand("copy");
     document.body.removeChild(ta);
-    toast("Copied.");
+    toast("Скопировано.");
   });
 });
 
@@ -62,7 +62,6 @@ $$("[data-copy]").forEach((btn) => {
 $$("a[data-placeholder]").forEach((a) => {
   a.addEventListener("click", (e) => {
     e.preventDefault();
-    toast("TODO: update this link.");
+    toast("Надо обновить ссылку.");
   });
 });
-

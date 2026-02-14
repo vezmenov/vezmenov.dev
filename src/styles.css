@@ -218,30 +218,38 @@ body {
 .meta {
   margin: 0;
   display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 10px 12px;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.64);
+  font-size: 12px;
+  color: rgba(11, 11, 16, 0.82);
+  text-decoration: none;
+  transition:
+    transform 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease;
 }
 
-.meta__label {
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(11, 11, 16, 0.55);
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(11, 11, 16, 0.2);
+  background: rgba(255, 255, 255, 0.78);
 }
 
-.meta__value {
-  font-size: 13px;
-  color: var(--ink);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
-.meta__value:hover {
-  text-decoration-color: rgba(11, 11, 16, 0.35);
+.chip--muted {
+  color: rgba(11, 11, 16, 0.58);
+  background: rgba(255, 255, 255, 0.48);
 }
 
 .name {
@@ -271,6 +279,22 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: var(--muted);
+}
+
+.role {
+  margin: 12px 0 0;
+  max-width: 80ch;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(11, 11, 16, 0.58);
+}
+
+.dim {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;
+  color: rgba(11, 11, 16, 0.56);
 }
 
 .cta {
@@ -336,6 +360,7 @@ body {
   padding: 16px 16px 18px;
   background: rgba(255, 255, 255, 0.52);
   box-shadow: 0 10px 34px rgba(11, 11, 16, 0.06);
+  grid-column: span 6;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -371,6 +396,43 @@ body {
   font-size: 14px;
 }
 
+.list--tight {
+  margin-top: 10px;
+}
+
+.stats {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.stats li {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.stats__k {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 48, "wght" 760;
+  letter-spacing: -0.02em;
+  font-size: 22px;
+  line-height: 1;
+  background: linear-gradient(90deg, rgba(11, 11, 16, 0.95), rgba(26, 36, 255, 0.86), rgba(255, 61, 129, 0.85));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stats__v {
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgba(11, 11, 16, 0.68);
+}
+
 .list--links {
   padding-left: 16px;
 }
@@ -390,20 +452,72 @@ body {
   text-decoration-color: rgba(26, 36, 255, 0.4);
 }
 
-.tile:nth-child(1) {
+.tile--wide {
+  grid-column: 1 / -1;
+}
+
+.tile--span7 {
   grid-column: span 7;
 }
 
-.tile:nth-child(2) {
+.tile--span5 {
   grid-column: span 5;
 }
 
-.tile:nth-child(3) {
-  grid-column: span 6;
+.rows {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
 }
 
-.tile:nth-child(4) {
-  grid-column: span 6;
+.row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.row__k {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(11, 11, 16, 0.56);
+}
+
+.row__v {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(11, 11, 16, 0.74);
+}
+
+.tags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(11, 11, 16, 0.14);
+  background: rgba(255, 255, 255, 0.56);
+  font-size: 12px;
+  color: rgba(11, 11, 16, 0.78);
+}
+
+.quote {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(11, 11, 16, 0.76);
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px dashed rgba(11, 11, 16, 0.18);
+  background: rgba(255, 255, 255, 0.44);
 }
 
 .foot {
@@ -485,11 +599,18 @@ body {
 }
 
 @media (max-width: 760px) {
-  .tile:nth-child(1),
-  .tile:nth-child(2),
-  .tile:nth-child(3),
-  .tile:nth-child(4) {
+  .meta {
+    justify-content: flex-start;
+  }
+  .tile {
     grid-column: 1 / -1;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .stats li {
+    grid-template-columns: 64px 1fr;
   }
 }
 

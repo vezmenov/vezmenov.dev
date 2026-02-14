@@ -1,19 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>vezmenov.dev</title>
+    <title>Данил Везьменов — Senior Frontend Engineer (Angular)</title>
     <meta
       name="description"
-      content="Minimal, sharp one-page business card. Edit the copy, push to main, Cloudflare Pages does the rest."
+      content="Данил Везьменов — Senior Frontend Engineer (Angular). Microfrontends, SSR/Hydration, Signals, perf & DX. Москва / удаленно."
     />
-    <meta name="theme-color" content="#0b0b10" />
+    <meta name="theme-color" content="#67b2ff" />
 
     <link rel="canonical" href="https://vezmenov.dev/" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:title" content="Данил Везьменов — Senior Frontend Engineer (Angular)" />
+    <meta
+      property="og:description"
+      content="Microfrontends, SSR/Hydration, Signals, perf & DX. Москва / удаленно."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vezmenov.dev/" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,72 +43,148 @@
       <section class="card" aria-label="Business card">
         <header class="top">
           <p class="kicker" data-reveal>vezmenov.dev</p>
-          <p class="meta" data-reveal>
-            <span class="meta__label">Contact</span>
-            <a class="meta__value" href="mailto:fetterdev@gmail.com">fetterdev@gmail.com</a>
-          </p>
+          <div class="meta" data-reveal aria-label="Contacts">
+            <a class="chip" href="mailto:fetterdev@gmail.com">fetterdev@gmail.com</a>
+            <a class="chip" href="https://t.me/danilaJS" target="_blank" rel="noreferrer">t.me/danilaJS</a>
+            <span class="chip chip--muted">Москва · remote/hybrid</span>
+          </div>
         </header>
 
         <h1 class="name" data-reveal>
-          <span class="name__line">Vezmenov</span>
-          <span class="name__line name__line--accent">Developer</span>
+          <span class="name__line">Данил</span>
+          <span class="name__line name__line--accent">Везьменов</span>
         </h1>
 
+        <p class="role" data-reveal>
+          Senior Frontend Engineer · Angular (v10–21) · Microfrontends · SSR/Hydration · Signals
+        </p>
+
         <p class="lead" data-reveal>
-          A clean one-page card with just enough personality. Replace the copy, links, and email, then deploy.
+          5+ лет в Angular (v10–21): строю архитектуру (Nx/Module Federation), ускоряю перфоманс и DX,
+          пишу тесты и настраиваю delivery (CI/CD). Плюс AI-автоматизация разработки (Cursor/Windsurf/Codex/Claude).
         </p>
 
         <div class="cta" data-reveal>
-          <a class="btn btn--primary" href="mailto:fetterdev@gmail.com">Email</a>
-          <a class="btn btn--ghost" href="https://github.com/vezmenov" target="_blank" rel="noreferrer"
-            >GitHub</a
+          <a class="btn btn--primary" href="https://t.me/danilaJS" target="_blank" rel="noreferrer"
+            >Написать в Telegram</a
           >
+          <a class="btn btn--ghost" href="mailto:fetterdev@gmail.com">Email</a>
+          <a class="btn btn--ghost" href="https://github.com/vezmenov" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn btn--ghost" href="/resume.pdf" target="_blank" rel="noreferrer">Резюме PDF</a>
           <button class="btn btn--ghost" type="button" data-copy="fetterdev@gmail.com">
-            Copy email
+            Скопировать email
           </button>
         </div>
 
         <div class="grid" data-reveal>
-          <section class="tile">
-            <h2 class="tile__title">What I do</h2>
+          <section class="tile tile--span7">
+            <h2 class="tile__title">Сейчас</h2>
             <p class="tile__body">
-              Frontend engineering, design systems, and performance. Also: APIs when needed.
+              <strong>Senior Frontend Engineer</strong> · Норд Клан (Москва)
+              <span class="dim">Окт 2023 — сейчас</span>
             </p>
-          </section>
-
-          <section class="tile">
-            <h2 class="tile__title">Selected</h2>
-            <ul class="list">
-              <li>Fast UI, solid DX</li>
-              <li>Accessibility first</li>
-              <li>Minimal dependencies</li>
+            <ul class="list list--tight">
+              <li>Angular 16–21: Signals, Zoneless, SSR/Hydration</li>
+              <li>Microfrontends: Webpack Module Federation, Nx monorepo</li>
+              <li>Testing/Delivery: Cypress, Karma/Jasmine, CI/CD, ESLint/Prettier</li>
             </ul>
           </section>
 
-          <section class="tile">
-            <h2 class="tile__title">Links</h2>
-            <ul class="list list--links">
-              <li><a href="https://github.com/vezmenov" target="_blank" rel="noreferrer">github.com/vezmenov</a></li>
-              <li><a href="https://t.me/" target="_blank" rel="noreferrer" data-placeholder>t.me/your_handle</a></li>
-              <li><a href="/resume.pdf" data-placeholder>resume.pdf</a></li>
+          <section class="tile tile--span5">
+            <h2 class="tile__title">Цифры</h2>
+            <ul class="stats">
+              <li><span class="stats__k">-25%</span><span class="stats__v">ускорил сборку после миграции на standalone</span></li>
+              <li><span class="stats__k">-30%</span><span class="stats__v">сократил запросы оптимизацией state (Elf Store)</span></li>
+              <li><span class="stats__k">+40%</span><span class="stats__v">ускорил FCP через lazy loading + standalone</span></li>
             </ul>
           </section>
 
-          <section class="tile">
-            <h2 class="tile__title">Notes</h2>
-            <p class="tile__body">
-              Everything here is static. Deploy it to Cloudflare Pages, attach the domain, and you are live.
+          <section class="tile tile--span6">
+            <h2 class="tile__title">Ключевые проекты</h2>
+            <ul class="list list--tight">
+              <li>МЧС РФ: ядро модулей на Angular 18 (signals), RBAC, dynamic forms (JSON-схемы)</li>
+              <li>ИТС «Умный город»: PWA, live-режим карты (WebSockets), сложные формы/валидации</li>
+              <li>РСХБ: миграция на standalone, оптимизация Elf Store, генерация печатных форм в браузере</li>
+              <li>Nexign: крит-фиксы под релиз, стабилизация Design System (Angular Material)</li>
+            </ul>
+          </section>
+
+          <section class="tile tile--span6">
+            <h2 class="tile__title">Ранее</h2>
+            <div class="rows">
+              <p class="row">
+                <span class="row__k">Nosota (Data1861)</span>
+                <span class="row__v">Frontend Developer (Startup Unit) · Янв 2023 — Окт 2023</span>
+              </p>
+              <p class="row">
+                <span class="row__k">Exceed Team</span>
+                <span class="row__v">Frontend Developer (Outstaff) · Сен 2020 — Янв 2023</span>
+              </p>
+            </div>
+            <ul class="list list--tight">
+              <li>Ionic/Capacitor, PWA, IndexedDB, offline-first, публикация в RuStore</li>
+              <li>Module Federation: распилил монолит на микрофронтенды для 3 команд</li>
+              <li>OpenStreetMap, PDF.js, многошаговые формы с асинхронной валидацией</li>
+            </ul>
+          </section>
+
+          <section class="tile tile--span6">
+            <h2 class="tile__title">Лидерство</h2>
+            <ul class="list list--tight">
+              <li>Наставничество: обучил 3 стажеров до Junior/Middle</li>
+              <li>Найм: участвовал в сборке команд под новые контракты</li>
+              <li>Комьюнити: внутренние митапы и воркшопы</li>
+            </ul>
+          </section>
+
+          <section class="tile tile--span6">
+            <h2 class="tile__title">Стек</h2>
+            <div class="tags" aria-label="Tech stack">
+              <span class="tag">Angular</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">RxJS</span>
+              <span class="tag">NgRx</span>
+              <span class="tag">Signals</span>
+              <span class="tag">Nx</span>
+              <span class="tag">Module Federation</span>
+              <span class="tag">SSR/Hydration</span>
+              <span class="tag">Cypress</span>
+              <span class="tag">Karma/Jasmine</span>
+              <span class="tag">CI/CD</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Ionic/Capacitor</span>
+              <span class="tag">Web Components</span>
+              <span class="tag">Design System</span>
+              <span class="tag">AI agents</span>
+            </div>
+          </section>
+
+          <section class="tile tile--wide">
+            <h2 class="tile__title">Образование · Языки · Подход</h2>
+            <div class="rows">
+              <p class="row">
+                <span class="row__k">Образование</span>
+                <span class="row__v">ЮФУ (ТТИ), Программная инженерия · 2022</span>
+              </p>
+              <p class="row">
+                <span class="row__k">Языки</span>
+                <span class="row__v">Русский (родной), English B2</span>
+              </p>
+            </div>
+            <p class="quote">
+              Не про “волчистость”: работаю честно, в одной команде, с фокусом на продукт, качество и ответственность
+              за результат. Люблю свою работу и проекты над которыми работаю, вовлекаюсь и стараюсь приносить импакт.
             </p>
           </section>
         </div>
 
         <footer class="foot">
           <p class="small">
-            © <span data-year></span> vezmenov.dev
+            © <span data-year></span> Данил Везьменов
           </p>
           <p class="small small--right">
             <span class="dot" aria-hidden="true"></span>
-            built with Vite
+            Angular inside
           </p>
         </footer>
       </section>
