@@ -1,5 +1,9 @@
 :root {
-  --paper: #f6f2ea;
+  --sky-top: #67b2ff;
+  --sky-mid: #8fd2ff;
+  --sky-bottom: #e7fbff;
+
+  --paper: var(--sky-bottom);
   --ink: #0b0b10;
   --muted: rgba(11, 11, 16, 0.72);
   --hairline: rgba(11, 11, 16, 0.12);
@@ -8,6 +12,10 @@
   --acid: #b6ff4a;
   --ultra: #1a24ff;
   --hot: #ff3d81;
+
+  --block: clamp(42px, 5.6vw, 64px);
+  --cloud-h: clamp(150px, 18vh, 240px);
+  --ground-h: calc(var(--block) * 4);
 
   --radius: 22px;
 
@@ -29,7 +37,7 @@ body {
   margin: 0;
   color: var(--ink);
   font-family: var(--mono);
-  background: var(--paper);
+  background: var(--sky-bottom);
   letter-spacing: -0.01em;
   text-rendering: geometricPrecision;
 }
@@ -62,30 +70,102 @@ body {
 .bg {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   pointer-events: none;
   background:
-    radial-gradient(1100px 820px at 15% 18%, rgba(182, 255, 74, 0.35), transparent 60%),
-    radial-gradient(980px 740px at 85% 28%, rgba(26, 36, 255, 0.18), transparent 60%),
-    radial-gradient(1100px 820px at 52% 92%, rgba(255, 61, 129, 0.13), transparent 62%),
-    linear-gradient(180deg, rgba(246, 242, 234, 0.8), rgba(246, 242, 234, 1));
+    radial-gradient(900px 620px at 68% 18%, rgba(255, 255, 255, 0.38), transparent 56%),
+    radial-gradient(820px 560px at 18% 34%, rgba(255, 255, 255, 0.24), transparent 58%),
+    linear-gradient(180deg, var(--sky-top), var(--sky-mid) 46%, var(--sky-bottom));
 }
 
 .bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.17;
-  mix-blend-mode: multiply;
+  opacity: 0.12;
+  mix-blend-mode: soft-light;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='210' height='210' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+.mc-clouds {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--cloud-h);
+  z-index: -2;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.mc-clouds::before,
+.mc-clouds::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --cloud-x0: 0px;
+  --cloud-y: 12px;
+  background-image: url("/pixel-clouds.svg");
+  background-repeat: repeat-x;
+  background-size: calc(var(--block) * 9) calc(var(--block) * 2.25);
+  background-position: var(--cloud-x0) var(--cloud-y);
+  opacity: 0.9;
+  animation: cloudsDrift 140s linear infinite;
+  image-rendering: pixelated;
+}
+
+.mc-clouds::after {
+  --cloud-x0: 240px;
+  --cloud-y: 28px;
+  opacity: 0.55;
+  transform: translateY(10px) scale(1.03);
+  animation-duration: 210s;
+}
+
+@keyframes cloudsDrift {
+  from {
+    background-position: var(--cloud-x0) var(--cloud-y);
+  }
+  to {
+    background-position: calc(var(--cloud-x0) - 1800px) var(--cloud-y);
+  }
+}
+
+.mc-ground {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--ground-h);
+  z-index: -2;
+  pointer-events: none;
+  image-rendering: pixelated;
+  background-image: url("/pixel-grass-block.svg"), url("/pixel-dirt.svg");
+  background-repeat: repeat-x, repeat;
+  background-size: var(--block) var(--block), var(--block) var(--block);
+  background-position: left top, left top;
+  box-shadow: 0 -18px 60px rgba(11, 11, 16, 0.18);
+}
+
+.mc-ground::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 11, 16, 0) 0%, rgba(11, 11, 16, 0.22) 100%);
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  pointer-events: none;
 }
 
 .page {
   min-height: 100%;
   display: grid;
   place-items: center;
-  padding: clamp(18px, 4.2vw, 56px);
+  padding:
+    calc(clamp(18px, 4.2vw, 56px) + (var(--cloud-h) * 0.14))
+    clamp(18px, 4.2vw, 56px)
+    calc(clamp(18px, 4.2vw, 56px) + (var(--ground-h) * 0.22));
 }
 
 .card {
@@ -98,6 +178,7 @@ body {
   backdrop-filter: blur(14px);
   padding: clamp(20px, 4vw, 48px);
   position: relative;
+  z-index: 1;
   overflow: clip;
 }
 
@@ -142,7 +223,7 @@ body {
   padding: 10px 12px;
   border-radius: 999px;
   border: 1px solid var(--hairline);
-  background: rgba(246, 242, 234, 0.65);
+  background: rgba(255, 255, 255, 0.62);
 }
 
 .meta__label {
@@ -414,6 +495,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .dot {
+    animation: none;
+  }
+  .mc-clouds::before,
+  .mc-clouds::after {
     animation: none;
   }
   [data-reveal] {

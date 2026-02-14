@@ -1,0 +1,49 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="16"
+  height="16"
+  viewBox="0 0 16 16"
+  shape-rendering="crispEdges"
+>
+  <!-- dirt base -->
+  <rect width="16" height="16" fill="#8a5a2b" />
+
+  <!-- grass cap -->
+  <rect x="0" y="0" width="16" height="5" fill="#6ad02f" />
+  <rect x="0" y="1" width="16" height="1" fill="#63c92c" />
+  <rect x="0" y="3" width="16" height="1" fill="#5bbf29" />
+
+  <!-- grass fringe (messy edge) -->
+  <rect x="1" y="5" width="2" height="1" fill="#56b124" />
+  <rect x="4" y="5" width="1" height="1" fill="#56b124" />
+  <rect x="6" y="5" width="2" height="1" fill="#56b124" />
+  <rect x="9" y="5" width="1" height="1" fill="#56b124" />
+  <rect x="11" y="5" width="2" height="1" fill="#56b124" />
+  <rect x="14" y="5" width="1" height="1" fill="#56b124" />
+  <rect x="0" y="5" width="1" height="1" fill="#3e8e20" />
+  <rect x="15" y="5" width="1" height="1" fill="#3e8e20" />
+
+  <!-- dirt texture -->
+  <rect x="1" y="7" width="2" height="1" fill="#6a3d1d" />
+  <rect x="9" y="7" width="2" height="1" fill="#6a3d1d" />
+  <rect x="12" y="8" width="2" height="1" fill="#6a3d1d" />
+  <rect x="5" y="10" width="2" height="1" fill="#6a3d1d" />
+  <rect x="2" y="12" width="2" height="1" fill="#6a3d1d" />
+  <rect x="10" y="13" width="2" height="1" fill="#6a3d1d" />
+
+  <!-- dirt shadows -->
+  <rect x="4" y="6" width="1" height="1" fill="#573018" />
+  <rect x="7" y="8" width="1" height="1" fill="#573018" />
+  <rect x="15" y="9" width="1" height="1" fill="#573018" />
+  <rect x="0" y="11" width="1" height="1" fill="#573018" />
+  <rect x="13" y="12" width="1" height="1" fill="#573018" />
+  <rect x="6" y="15" width="1" height="1" fill="#573018" />
+
+  <!-- dirt highlights -->
+  <rect x="6" y="6" width="1" height="1" fill="#a9783d" />
+  <rect x="13" y="6" width="1" height="1" fill="#a9783d" />
+  <rect x="8" y="9" width="1" height="1" fill="#a9783d" />
+  <rect x="3" y="10" width="1" height="1" fill="#a9783d" />
+  <rect x="14" y="11" width="1" height="1" fill="#a9783d" />
+  <rect x="9" y="15" width="1" height="1" fill="#a9783d" />
+</svg>
