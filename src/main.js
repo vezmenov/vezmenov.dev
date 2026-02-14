@@ -70,8 +70,8 @@ const sceneCanvas = document.getElementById("scene");
 if (sceneCanvas instanceof HTMLCanvasElement) {
   const boot = async () => {
     try {
-      const { initThreeBackgroundCrane } = await import("./scene.js");
-      initThreeBackgroundCrane(sceneCanvas);
+      const { initThreeBackgroundSky } = await import("./scene.js");
+      initThreeBackgroundSky(sceneCanvas);
     } catch {
       // If WebGL/Three fails for any reason, keep the page usable.
     }
