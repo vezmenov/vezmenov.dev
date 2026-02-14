@@ -7,6 +7,8 @@ dist/
 .env
 .env.*.local
 
+Docs/Snapshots/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

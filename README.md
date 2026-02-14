@@ -47,3 +47,13 @@ Then adjust the Cloudflare Pages project name in `.github/workflows/deploy.yml` 
 Edit copy/links in:
 
 - `index.html`
+
+## UI Snapshots (Playwright)
+
+```bash
+npm run ui:snap
+```
+
+Output:
+
+- `Docs/Snapshots/latest/*.png`

@@ -93,8 +93,9 @@ body {
   inset: 0;
   z-index: -3;
   pointer-events: none;
-  opacity: 0.78;
-  filter: saturate(0.95) contrast(1.03);
+  opacity: 0.9;
+  filter: saturate(0.98) contrast(1.04);
+  image-rendering: pixelated;
 }
 
 .mc-clouds {

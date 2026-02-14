@@ -199,13 +199,21 @@ function cellToWorld({ x, z, spacing, z0 }) {
 }
 
 function pickMove(blocks, empty) {
-  const from = blocks[Math.floor(Math.random() * blocks.length)];
+  const options = blocks.filter((b) => {
+    const g = b.userData?.grid;
+    if (!g) return false;
+    const dx = Math.abs(g.x - empty.x);
+    const dz = Math.abs(g.z - empty.z);
+    return dx + dz === 1;
+  });
+
+  const pool = options.length ? options : blocks;
+  const from = pool[Math.floor(Math.random() * pool.length)];
   return { from, to: { x: empty.x, z: empty.z } };
 }
 
 export function initThreeBackgroundCrane(canvas) {
   const prefersReduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-  if (prefersReduce) return () => {};
   if (!supportsWebGL()) return () => {};
 
   const renderer = new THREE.WebGLRenderer({
@@ -216,13 +224,14 @@ export function initThreeBackgroundCrane(canvas) {
   });
   renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = false;
+  renderer.setPixelRatio(1);
 
   const scene = new THREE.Scene();
 
   const camera = new THREE.OrthographicCamera(-6, 6, 6, -6, 0.1, 100);
-  camera.position.set(9.5, 9.4, 10.8);
-  camera.lookAt(0, 1.2, 0);
-  camera.zoom = 86;
+  camera.position.set(9.2, 7.6, 9.7);
+  camera.lookAt(0.9, 1.0, -0.7);
+  camera.zoom = 1.35;
   camera.updateProjectionMatrix();
 
   const ambient = new THREE.AmbientLight(0xffffff, 0.76);
@@ -335,7 +344,8 @@ export function initThreeBackgroundCrane(canvas) {
   function resize() {
     const w = canvas.clientWidth || window.innerWidth;
     const h = canvas.clientHeight || window.innerHeight;
-    renderer.setSize(w, h, false);
+    const px = 2; // render at lower res then scale (pixel vibe)
+    renderer.setSize(Math.max(1, Math.floor(w / px)), Math.max(1, Math.floor(h / px)), false);
 
     // Keep the orthographic framing stable across aspect ratios.
     const aspect = w / h;
@@ -477,18 +487,20 @@ export function initThreeBackgroundCrane(canvas) {
 
   function render() {
     if (!running) return;
-    step(clock.getDelta());
+    if (!prefersReduce) step(clock.getDelta());
     renderer.render(scene, camera);
-    raf = window.requestAnimationFrame(render);
+    if (!prefersReduce) raf = window.requestAnimationFrame(render);
   }
 
+  // Reduced motion: draw a single frame, no animation loop.
   raf = window.requestAnimationFrame(render);
 
   const onVis = () => {
+    if (prefersReduce) return;
     running = !document.hidden;
     if (running) raf = window.requestAnimationFrame(render);
   };
-  document.addEventListener("visibilitychange", onVis, { passive: true });
+  if (!prefersReduce) document.addEventListener("visibilitychange", onVis, { passive: true });
 
   return () => {
     running = false;
