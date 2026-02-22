@@ -106,16 +106,65 @@ body {
   backdrop-filter: blur(14px);
 }
 
-.tag-pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid rgba(15, 29, 45, 0.15);
-  background: rgba(255, 255, 255, 0.88);
-  padding: 5px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(15, 29, 45, 0.9);
+.tree-card {
+  border-color: rgba(255, 255, 255, 0.66);
+}
+
+.resume-tree,
+.resume-tree ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-tree {
+  color: rgba(15, 29, 45, 0.82);
+}
+
+.resume-tree ul {
+  margin-top: 8px;
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid rgba(15, 29, 45, 0.2);
+}
+
+.resume-tree li {
+  position: relative;
+  margin: 8px 0;
+  padding-left: 12px;
+  font-size: 0.87rem;
+  line-height: 1.56;
+}
+
+.resume-tree li::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 0.72em;
+  width: 14px;
+  height: 1px;
+  background: rgba(15, 29, 45, 0.22);
+}
+
+.resume-tree > li {
+  padding-left: 0;
+}
+
+.resume-tree > li::before {
+  display: none;
+}
+
+.tree-node {
+  font-weight: 700;
+  color: rgba(10, 24, 39, 0.96);
+}
+
+.tree-node--root {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 29, 45, 0.16);
+  background: rgba(184, 255, 62, 0.22);
 }
 
 code {
