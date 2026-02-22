@@ -65,21 +65,3 @@ $$("a[data-placeholder]").forEach((a) => {
     toast("Надо обновить ссылку.");
   });
 });
-
-const sceneCanvas = document.getElementById("scene");
-if (sceneCanvas instanceof HTMLCanvasElement) {
-  const boot = async () => {
-    try {
-      const { initThreeBackgroundSky } = await import("./scene.js");
-      initThreeBackgroundSky(sceneCanvas);
-    } catch {
-      // If WebGL/Three fails for any reason, keep the page usable.
-    }
-  };
-
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(() => void boot(), { timeout: 1200 });
-  } else {
-    window.setTimeout(() => void boot(), 350);
-  }
-}
