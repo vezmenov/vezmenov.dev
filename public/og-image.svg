@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Senior Frontend Engineer (Angular)">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#67b2ff" />
+      <stop offset="52%" stop-color="#8fd2ff" />
+      <stop offset="100%" stop-color="#e7fbff" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0b0b10" />
+      <stop offset="50%" stop-color="#1a24ff" />
+      <stop offset="100%" stop-color="#ff3d81" />
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="20" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect x="0" y="0" width="1200" height="630" fill="#ffffff" opacity="0.1" />
+
+  <circle cx="1060" cy="80" r="140" fill="#ffffff" opacity="0.28" filter="url(#soft)" />
+  <circle cx="180" cy="560" r="180" fill="#ffffff" opacity="0.2" filter="url(#soft)" />
+
+  <g fill="#ffffff" opacity="0.82">
+    <rect x="72" y="74" width="146" height="28" rx="14" />
+    <rect x="248" y="74" width="220" height="28" rx="14" />
+    <rect x="494" y="74" width="170" height="28" rx="14" />
+  </g>
+
+  <text x="72" y="170" font-family="Fraunces, Georgia, serif" font-size="78" font-weight="700" fill="#0b0b10">
+    Данил Везьменов
+  </text>
+  <text x="72" y="230" font-family="Azeret Mono, monospace" font-size="24" fill="url(#accent)">
+    Senior Frontend Engineer (Angular)
+  </text>
+  <text x="72" y="278" font-family="Azeret Mono, monospace" font-size="20" fill="#0b0b10" opacity="0.82">
+    Microfrontends • SSR/Hydration • Performance • CI/CD
+  </text>
+
+  <g font-family="Azeret Mono, monospace" font-size="18" fill="#0b0b10">
+    <rect x="72" y="332" width="190" height="44" rx="22" fill="#b6ff4a" stroke="#0b0b10" stroke-opacity="0.16" />
+    <text x="101" y="360">Angular 16-21</text>
+
+    <rect x="278" y="332" width="234" height="44" rx="22" fill="#ffffff" fill-opacity="0.82" stroke="#0b0b10" stroke-opacity="0.16" />
+    <text x="310" y="360">Module Federation</text>
+
+    <rect x="530" y="332" width="186" height="44" rx="22" fill="#ffffff" fill-opacity="0.82" stroke="#0b0b10" stroke-opacity="0.16" />
+    <text x="573" y="360">SSR/Hydration</text>
+  </g>
+
+  <text x="72" y="560" font-family="Azeret Mono, monospace" font-size="18" fill="#0b0b10" opacity="0.8">
+    vezmenov.dev  •  t.me/danilaJS
+  </text>
+</svg>
